@@ -1,9 +1,17 @@
 import { Link } from 'react-router-dom'
+import Wrapper from '../assets/wrappers/RegisterAndLoginPage';
+import { Logo } from '../components';
 
 const Login = () => {
   
   return (
-    <div><h1>Login Page</h1><Link to='/register'>Register Page</Link></div>
+    <Wrapper>
+      <form className="form">
+        <Logo />
+        <h4>Login</h4>
+        <FormRow type='email' name='email' labelText='Email' defaultValue='john@gmail.com' />
+    </form>
+    </Wrapper>
   )
   
 }
