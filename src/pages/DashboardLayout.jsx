@@ -1,24 +1,27 @@
-import {Outlet} from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Wrapper from '../assets/wrappers/Dashboard';
 import { BigSidebar, Navbar, SmallSidebar } from '../components';
 import { createContext, useContext, useState } from 'react';
 
 const DashboardContext = createContext();
 
-const DashboardLayout = () => {
-  const user = {name: 'John Doe'};
+const DashboardLayout = ({isDarkThemeEnabled}) => {
+  const user = { name: 'John Doe' };
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(isDarkThemeEnabled);
 
   const toggleDarkTheme = () => {
-    console.log('Toggling dark theme');
+    const newDarkTheme = !isDarkTheme;
+    setIsDarkTheme(newDarkTheme);
+    document.body.classList.toggle('dark-theme', newDarkTheme);
+    localStorage.setItem('darkTheme', newDarkTheme);
   };
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
 
-  const logoutUser=async ()=>{
+  const logoutUser = async () => {
     console.log('Logout user');
   };
 
@@ -33,18 +36,18 @@ const DashboardLayout = () => {
         logoutUser,
       }}
     >
-    <Wrapper>
-      <main className='dashboard'>
-        <SmallSidebar />
-        <BigSidebar />
-        <div>
-          <Navbar />
-          <div className='dashboard-page'>
-            <Outlet context={{user}}/>
+      <Wrapper>
+        <main className='dashboard'>
+          <SmallSidebar />
+          <BigSidebar />
+          <div>
+            <Navbar />
+            <div className='dashboard-page'>
+              <Outlet context={{ user }} />
             </div>
-        </div>
+          </div>
         </main>
-    </Wrapper>
+      </Wrapper>
     </DashboardContext.Provider>
   );
 };
