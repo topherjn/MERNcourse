@@ -8,7 +8,7 @@ const DashboardContext = createContext();
 const DashboardLayout = () => {
   const user = {name: 'John Doe'};
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isDarkTheme,setIsDarkTheme] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   const toggleDarkTheme = () => {
     console.log('Toggling dark theme');
@@ -23,7 +23,16 @@ const DashboardLayout = () => {
   };
 
   return (
-    <DashboardContext.Provider value={{user,showSidebar,isDarkTheme,toggleDarkTheme,toggleSidebar,logoutUser}}>
+    <DashboardContext.Provider
+      value={{
+        user,
+        showSidebar,
+        isDarkTheme,
+        toggleDarkTheme,
+        toggleSidebar,
+        logoutUser,
+      }}
+    >
     <Wrapper>
       <main className='dashboard'>
         <SmallSidebar />
@@ -31,7 +40,7 @@ const DashboardLayout = () => {
         <div>
           <Navbar />
           <div className='dashboard-page'>
-            <Outlet />
+            <Outlet context={{user}}/>
             </div>
         </div>
         </main>
